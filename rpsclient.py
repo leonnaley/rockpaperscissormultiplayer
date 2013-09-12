@@ -107,6 +107,7 @@ import debug  # Remember to delete this line                                   #
 import socket
 import time
 import libnetwork as net
+import random
 
 #MAKES THE INPUT FUNCTION IN PYTHON2 WORK AS THE ONE FROM PYTHON3
 if sys.version_info[0] == 2:
@@ -148,6 +149,7 @@ else:
 #DEFINES EXCEPTIONS/CLASSES
 
 #DEF VARIABLES AND OBJECTS
+sUniqueID = str(random.randrange(1000000,9999999))
 
 #RUNS THE MAIN PROGRAM
 if __name__ == "__main__":
@@ -156,6 +158,7 @@ if __name__ == "__main__":
     sServerHostName = input(
         "please input the hostname of the server you want to join: ")
     print("Connecting to ", sServerHostName, sep="")
-    net.fSend("Register Player " + sPlayerName, socket.gethostbyname(sServerHostName))
+    net.fSend("Register Player " + sUniqueID + " " + sPlayerName,
+              socket.gethostbyname(sServerHostName))
     print("Connection Established")
 

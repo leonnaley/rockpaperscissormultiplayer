@@ -149,15 +149,16 @@ else:
 
 #DEF VARIABLES AND OBJECTS
 sHostName = socket.gethostname()
+dPlayers = {}
 
 #RUNS THE MAIN PROGRAM
 if __name__ == "__main__":
     print("Welcome to rpsMultiplayer")
     print("The server has been started on the hostname", sHostName)
-    iPlayerCount = int(input("How many players will there be?"))
-    print("You can ask the players to connect to the server now")
 
-    dPlayers = {}
+    iPlayerCount = int(input("How many players will there be?"))
+    print("You can tell the players to connect to the server now")
+
     for i in range(iPlayerCount):
         while True:
             sDataReceived, sIpAdressClient = net.fsReceive()

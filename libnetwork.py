@@ -113,8 +113,8 @@ if sys.version_info[0] == 2:
 if "-log" in sys.argv:
     import logging
 
-    #to log to a file, add: filemode="w", filename='log.txt' as parameters
-    #into the next line (inside the basicconfig function)
+    #To log to a file, add: filemode="w", filename='log.txt' as parameters
+    #   into the next line (inside the basicconfig function)
     logging.basicConfig(level=logging.DEBUG, format='Log: %(message)s')
 
     def log(*Parameters):
@@ -122,64 +122,74 @@ if "-log" in sys.argv:
         and sends them to logging.debug'''
         lsParameters = []
 
-        #convert every parameter to a string, and appends it to a list
+        #Convert every parameter to a string, and appends it to a list
         for Parameter in Parameters:
             lsParameters.append(str(Parameter))
 
-        #converts the list to a string
+        #Converts the list to a string
         sOutput = "".join(lsParameters)
 
-        #logs the concatenated list
+        #Logs the concatenated list
         logging.debug(sOutput)
 else:
     def log(*parameters):
         '''Dummy log function'''
 
-#DEFINES CONSTANTS
-
-#DEFINES WRAPPER FUNCTIONS
 
 #DEFINES FUNCTIONS
-def fSend(sData, sIpAdress, iPort=8001):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def fSend(sData, sIpAdress, iPort=8000):
+    '''Sends a string of characters to an ip adress.'''
+    #Creates a socket object
+    oSock = oSocket.oSocket(oSocket.AF_INET, oSocket.SOCK_STREAM)
 
-    sIpAdress = socket.gethostbyname(sHostName)
+    #Figures out the ip adress (if the client is on the same server,
+    #   set it to 127.0.0.1)
+    sIpAdress = oSocket.gethostbyname(sHostName)
     if sIpAdress.startswith("127"):
         sIpAdress = "127.0.0.1"
-    #Tries to connect to the listening server,
-    #   and then send its data over to it.
+
+    #Tries to connect to the listening server
     while True:
         try:
-            sock.connect((sIpAdress, iPort))
+            oSock.connect((sIpAdress, iPort))
         except:
             time.sleep(0.5)
         else:
-            sock.send(sData)
+            #Sends the string of characters on the socket
+            oSock.send(sData)
             break
-    sock.close()
-    del sock
 
-def fsReceive(iPort=8001):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(("127.0.0.1", iPort))
-    sock.listen(1)
-    oOutgoing, addr = sock.accept()
+    #Closes and deletes the socket to free up the port used
+    oSock.close()
+    del oSock
+
+
+def fsReceive(iPort=8000):
+    #Creates a socket object
+    oSock = oSocket.oSocket(oSocket.AF_INET, oSocket.SOCK_STREAM)
+
+    #Binds the socket object to an ip adress and port and starts listening
+    #   in on the socket
+    oSock.bind(("127.0.0.1", iPort))
+    oSock.listen(1)
+
+    #Receives a socket and an ip adress from the sender
+    oOutgoing, addr = oSock.accept()
+
+    #Listen in on the receiversocket for up to 1024 bytes of data
     sData = oOutgoing.recv(1024)
+
+    #Closes and deletes all sockets to free up ports
     oOutgoing.close()
-    sock.close()
-    del sock
+    oSock.close()
+    del oSock
     del oOutgoing
+
+    #returns the data from the sender and the ip adress of the sender
     return(sData, addr)
-
-#DEFINES PROCEDURES
-
-#DEFINES EXCEPTIONS/CLASSES
-
-#DEF VARIABLES AND OBJECTS
 
 #RUNS THE MAIN PROGRAM
 if __name__ == "__main__":
     log("Running ", __file__, " as a script")
     print("this module is not meant to be runned as a script, exiting")
-    print(input())
     exit(1)
