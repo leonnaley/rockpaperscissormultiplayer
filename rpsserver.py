@@ -138,37 +138,27 @@ else:
     def log(*parameters):
         '''Dummy log function'''
 
-#DEFINES CONSTANTS
-
-#DEFINES WRAPPER FUNCTIONS
-
-#DEFINES FUNCTIONS
-#DEFINES PROCEDURES
-
-#DEFINES EXCEPTIONS/CLASSES
-
 #DEF VARIABLES AND OBJECTS
 sHostName = socket.gethostname()
-dPlayers = {}
+lPlayers = []
 
 #RUNS THE MAIN PROGRAM
 if __name__ == "__main__":
-    print("Welcome to rpsMultiplayer")
-    print("The server has been started on the hostname", sHostName)
+    #Displays hostname and lets the administrator know that the players
+    #   are now free to connect
+    print("The players are now free to connect to", sHostName)
+    print("Good luck :)")
 
-    iPlayerCount = int(input("How many players will there be?"))
-    print("You can tell the players to connect to the server now")
+    #Receive and Register all clients and their info in a list of dictionaries
 
-    for i in range(iPlayerCount):
-        while True:
-            sDataReceived, sIpAdressClient = net.fsReceive()
-            if sDataReceived.startswith("Register Player "):
-                if sDataReceived[16:] not in dPlayers:
-                    dPlayers.update({sDataReceived[16:]:sIpAdressClient})
-                    net.fSend("Player registered", sIpAdressClient,)
-                    break
-                else:
-                    net.fSend("Error: Playername Already Registered", sIpAdressClient)
-            else:
-                net.fSend("Error: Expecting registration of players", sIpAdressClient)
-    print(dPlayers)
+    #Loop until the game has been won
+        #Transmit score to all players
+        #Make all players active
+        #Loop until only one player remains active (the round has been won)
+            #Request choices from all active players
+            #Set all losing players to inactive
+            #Transmit choices to all players
+        #Reward the only player that's active with a point
+    #Transmit score and the end of the game for all players, then exit
+
+    exit(0)

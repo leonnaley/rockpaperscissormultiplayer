@@ -139,26 +139,34 @@ else:
     def log(*parameters):
         '''Dummy log function'''
 
-#DEFINES CONSTANTS
-
-#DEFINES WRAPPER FUNCTIONS
-
 #DEFINES FUNCTIONS
-#DEFINES PROCEDURES
+def fClearScreen():
+    '''Prints 40 blank lines, effectively clearing the terminal screen'''
+    print("\n"*40)
 
-#DEFINES EXCEPTIONS/CLASSES
+
+def fRegisterPlayer():
+    '''Registers a player against the server'''
+    net.fSend("Register Player " + sUniqueID + " " + sPlayerName,
+              socket.gethostbyname(sServerHostName))
+
+
+def fSwitch():
+    '''Connects to the server and receives a string of characters from it,
+    which determines what screen this client should display'''
+    d = {"Register_Player":fRegisterPlayer,
+         "Receive_Results":fReceiveResults,
+         "Receive_Choices":fReceiveChoices}
+
+    d[sDataReceived.split()[0]](sDataReceived)
+
 
 #DEF VARIABLES AND OBJECTS
 sUniqueID = str(random.randrange(1000000,9999999))
 
 #RUNS THE MAIN PROGRAM
 if __name__ == "__main__":
-    print("Welcome to rpsMultiplayer")
-    sPlayerName = input("Input your playername: ")[:12]
-    sServerHostName = input(
-        "please input the hostname of the server you want to join: ")
-    print("Connecting to ", sServerHostName, sep="")
-    net.fSend("Register Player " + sUniqueID + " " + sPlayerName,
-              socket.gethostbyname(sServerHostName))
-    print("Connection Established")
+    #Displays welcome screen
+
+
 
