@@ -104,6 +104,7 @@ __version__ = '.'.join(__version_info__[1:])
 #IMPORTS AND SETS UP MODULES
 import sys
 import debug  # Remember to delete this line                                   ###
+import socket
 
 #MAKES THE INPUT FUNCTION IN PYTHON2 WORK AS THE ONE FROM PYTHON3
 if sys.version_info[0] == 2:
