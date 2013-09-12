@@ -140,6 +140,36 @@ else:
 #DEFINES WRAPPER FUNCTIONS
 
 #DEFINES FUNCTIONS
+def fSend(sData, sIpAdress, iPort=8001):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    sIpAdress = socket.gethostbyname(sHostName)
+    if sIpAdress.startswith("127"):
+        sIpAdress = "127.0.0.1"
+    #Tries to connect to the listening server,
+    #   and then send its data over to it.
+    while True:
+        try:
+            sock.connect((sIpAdress, iPort))
+        except:
+            time.sleep(0.5)
+        else:
+            sock.send(sData)
+            break
+    sock.close()
+    del sock
+
+def fsReceive(iPort=8001):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(("127.0.0.1", iPort))
+    sock.listen(1)
+    oOutgoing, addr = sock.accept()
+    sData = oOutgoing.recv(1024)
+    oOutgoing.close()
+    sock.close()
+    del sock
+    del oOutgoing
+    return(sData, addr)
 
 #DEFINES PROCEDURES
 

@@ -106,6 +106,7 @@ import sys
 import debug  # Remember to delete this line                                   ###
 import socket
 import time
+import libnetwork as net
 
 #MAKES THE INPUT FUNCTION IN PYTHON2 WORK AS THE ONE FROM PYTHON3
 if sys.version_info[0] == 2:
@@ -142,23 +143,6 @@ else:
 #DEFINES WRAPPER FUNCTIONS
 
 #DEFINES FUNCTIONS
-def fSend(sData, sIpAdress, iPort=8001):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    if sIpAdress.startswith("127"):
-        sIpAdress = "127.0.0.1"
-    #Tries to connect to the listening server,
-    #   and then send its data over to it.
-    while True:
-        try:
-            sock.connect((sIpAdress, iPort))
-        except:
-            time.sleep(0.5)
-        else:
-            sock.send(sData)
-            break
-    sock.close()
-    del sock
 #DEFINES PROCEDURES
 
 #DEFINES EXCEPTIONS/CLASSES
@@ -172,6 +156,6 @@ if __name__ == "__main__":
     sServerHostName = input(
         "please input the hostname of the server you want to join: ")
     print("Connecting to ", sServerHostName, sep="")
-    fSend("Register Player " + sPlayerName, socket.gethostbyname(sServerHostName))
+    net.fSend("Register Player " + sPlayerName, socket.gethostbyname(sServerHostName))
     print("Connection Established")
 

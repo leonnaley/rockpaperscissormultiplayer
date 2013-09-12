@@ -106,6 +106,7 @@ import sys
 import debug  # Remember to delete this line                                   ###
 import socket
 import time
+import libnetwork as net
 
 #MAKES THE INPUT FUNCTION IN PYTHON2 WORK AS THE ONE FROM PYTHON3
 if sys.version_info[0] == 2:
@@ -142,36 +143,6 @@ else:
 #DEFINES WRAPPER FUNCTIONS
 
 #DEFINES FUNCTIONS
-def fSend(sData, sIpAdress, iPort=8001):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    sIpAdress = socket.gethostbyname(sHostName)
-    if sIpAdress.startswith("127"):
-        sIpAdress = "127.0.0.1"
-    #Tries to connect to the listening server,
-    #   and then send its data over to it.
-    while True:
-        try:
-            sock.connect((sIpAdress, iPort))
-        except:
-            time.sleep(0.5)
-        else:
-            sock.send(sData)
-            break
-    sock.close()
-    del sock
-
-def fsReceive(iPort=8001):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(("127.0.0.1", iPort))
-    sock.listen(1)
-    oOutgoing, addr = sock.accept()
-    sData = oOutgoing.recv(1024)
-    oOutgoing.close()
-    sock.close()
-    del sock
-    del oOutgoing
-    return(sData, addr)
 #DEFINES PROCEDURES
 
 #DEFINES EXCEPTIONS/CLASSES
@@ -189,14 +160,14 @@ if __name__ == "__main__":
     dPlayers = {}
     for i in range(iPlayerCount):
         while True:
-            sDataReceived, sIpAdressClient = fsReceive()
+            sDataReceived, sIpAdressClient = net.fsReceive()
             if sDataReceived.startswith("Register Player "):
                 if sDataReceived[16:] not in dPlayers:
                     dPlayers.update({sDataReceived[16:]:sIpAdressClient})
-                    fSend("Player registered", sIpAdressClient,)
+                    net.fSend("Player registered", sIpAdressClient,)
                     break
                 else:
-                    fSend("Error: Playername Already Registered", sIpAdressClient)
+                    net.fSend("Error: Playername Already Registered", sIpAdressClient)
             else:
-                fSend("Error: Expecting registration of players", sIpAdressClient)
+                net.fSend("Error: Expecting registration of players", sIpAdressClient)
     print(dPlayers)
