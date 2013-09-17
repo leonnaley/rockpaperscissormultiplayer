@@ -6,13 +6,9 @@
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
 import libcommon  # Helps with debugging, logging, documentation and unittesting
-import libnetwork as libnet
 import logging
 import unittest
-import random
-import socket
 import sys
-import time
 
 #HANDLES COMPATIBILITY FOR PYTHON2
 if sys.version_info[0] == 2:
@@ -25,27 +21,6 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 
 #DEFINES WRAPPER FUNCTIONS
 #DEFINES FUNCTIONS
-def fClearScreen():
-    '''Prints 40 blank lines, effectively clearing the terminal screen'''
-    print("\n"*40)
-
-
-def fRegisterPlayer():
-    '''Registers a player against the server'''
-    libnet.fSend("Register Player " + sUniqueID + " " + sPlayerName,
-              socket.gethostbyname(sServerHostName))
-
-
-def fSwitch():
-    '''Connects to the server and receives a string of characters from it,
-    which determines what screen this client should display'''
-    d = {"Register_Player": fRegisterPlayer,
-         "Receive_Results": fReceiveResults,
-         "Receive_Choices": fReceiveChoices}
-
-    d[sDataReceived.split()[0]](sDataReceived)
-
-
 #DEFINES PROCEDURES
 #DEFINES EXCEPTIONS/CLASSES/UNITTESTS
 class unittests(unittest.TestCase):
@@ -61,9 +36,7 @@ if "-test" in sys.argv:
     unittest.main()
 
 #DEFINES VARIABLES AND OBJECTS
-sUniqueID = str(random.randrange(1000000, 9999999))
-
 #QUITS IF THIS FILE IS RUN AS A SCRIPT
 if __name__ == "__main__":
-    #Displays welcome screen
-    pass
+    logging.critical('This is a library not a script, exiting')
+    exit(1)

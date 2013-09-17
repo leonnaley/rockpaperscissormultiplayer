@@ -1,0 +1,10 @@
+rockpaperscissor is a simple rock paper scissor game with networking.
+
+I'm making this to learn networking, advanced unittesting, guicreating, etc...
+
+The first implementation will support multiple players on diffrent computers, and options for playing with computers.
+
+the second one will support hotseating
+
+the third one will implement a gui
+If adding files to this project please use template.py as a template. There are more documentation in libcommon.py in the doc lines.
