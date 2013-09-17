@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # coding=utf-8
 #This module is runnable with python2.x and python3.x
@@ -7,7 +6,7 @@
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
 import libcommon  # Helps with debugging, logging, documentation and unittesting
-import libnetwork as libnet
+import libnet
 import logging
 import unittest
 import socket

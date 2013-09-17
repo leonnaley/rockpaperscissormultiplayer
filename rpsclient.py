@@ -6,7 +6,7 @@
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
 import libcommon  # Helps with debugging, logging, documentation and unittesting
-import libnetwork as libnet
+import libnet
 import logging
 import unittest
 import random
