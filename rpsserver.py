@@ -17,6 +17,12 @@ import time
 if sys.version_info[0] == 2:
     input = raw_input
 
+#HANDLES UNITTESTING
+if "-test" in sys.argv:
+    sys.argv = [sys.argv[0]]
+    input = libcommon.fxInput
+    unittest.main()
+
 #GENERAL INFORMATION
 __author__ = "Leon Naley"
 __copyright__ = "Copyright (c) 2013 Leon Naley"
@@ -32,17 +38,11 @@ class unittests(unittest.TestCase):
         libcommon.fSetInput(["test"])
         self.assertEqual("test", input())
 
-#HANDLES UNITTESTING
-if "-test" in sys.argv:
-    sys.argv = [sys.argv[0]]
-    input = libcommon.fxInput
-    unittest.main()
-
 #DEFINES VARIABLES AND OBJECTS
 sHostName = socket.gethostname()
 lPlayers = []
 
-#QUITS IF THIS FILE IS RUN AS A SCRIPT
+#STARTS THE SERVER
 if __name__ == "__main__":
     #Displays hostname and lets the administrator know that the players
     #   are now free to connect

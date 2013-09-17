@@ -63,7 +63,7 @@ if "-test" in sys.argv:
 #DEFINES VARIABLES AND OBJECTS
 sUniqueID = str(random.randrange(1000000, 9999999))
 
-#QUITS IF THIS FILE IS RUN AS A SCRIPT
+#STARTS THE CLIENT
 if __name__ == "__main__":
     #Displays welcome screen
     pass
