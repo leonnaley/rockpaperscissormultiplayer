@@ -5,10 +5,9 @@
 
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
-import libcommon  # Helps with debugging, logging, documentation and unittesting
+import libcommon  # Helps with debugging, logging and documentation
 import libnet
 import logging
-import unittest
 import socket
 import sys
 import time
@@ -16,12 +15,6 @@ import time
 #HANDLES COMPATIBILITY FOR PYTHON2
 if sys.version_info[0] == 2:
     input = raw_input
-
-#HANDLES UNITTESTING
-if "-test" in sys.argv:
-    sys.argv = [sys.argv[0]]
-    input = libcommon.fxInput
-    unittest.main()
 
 #GENERAL INFORMATION
 __author__ = "Leon Naley"
@@ -31,13 +24,7 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 #DEFINES WRAPPER FUNCTIONS
 #DEFINES FUNCTIONS
 #DEFINES PROCEDURES
-#DEFINES EXCEPTIONS/CLASSES/UNITTESTS
-class unittests(unittest.TestCase):
-    '''This class will contain all unit tests for this file.'''
-    def test_placeholder_example(self):
-        libcommon.fSetInput(["test"])
-        self.assertEqual("test", input())
-
+#DEFINES EXCEPTIONS/CLASSES
 #DEFINES VARIABLES AND OBJECTS
 sHostName = socket.gethostname()
 lPlayers = []

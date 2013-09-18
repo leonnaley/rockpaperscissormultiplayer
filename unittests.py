@@ -22,6 +22,12 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 #DEFINES FUNCTIONS
 #DEFINES PROCEDURES
 #DEFINES EXCEPTIONS/CLASSES
+class libcommonTests(unittest.TestCase):
+    '''This class will contain all unit tests for this file.'''
+    def test_placeholder_example(self):
+        libcommon.fSetInput(["test"])
+        self.assertEqual("test", input())
+
 #DEFINES VARIABLES AND OBJECTS
 #QUITS IF THIS FILE IS RUN AS A SCRIPT
 if __name__ == "__main__":

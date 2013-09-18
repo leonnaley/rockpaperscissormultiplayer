@@ -5,9 +5,8 @@
 
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
-import libcommon  # Helps with debugging, logging, documentation and unittesting
+import libcommon  # Helps with debugging, logging and documentation
 import logging
-import unittest
 import socket
 import sys
 
@@ -75,19 +74,7 @@ def fsReceive(iPort=8000):
 
 
 #DEFINES PROCEDURES
-#DEFINES EXCEPTIONS/CLASSES/UNITTESTS
-class unittests(unittest.TestCase):
-    '''This class will contain all unit tests for this file.'''
-    def test_placeholder_example(self):
-        libcommon.fSetInput(["test"])
-        self.assertEqual("test", input())
-
-#HANDLES UNITTESTING
-if "-test" in sys.argv:
-    sys.argv = [sys.argv[0]]
-    input = libcommon.fxInput
-    unittest.main()
-
+#DEFINES EXCEPTIONS/CLASSES
 #DEFINES VARIABLES AND OBJECTS
 #QUITS IF THIS FILE IS RUN AS A SCRIPT
 if __name__ == "__main__":

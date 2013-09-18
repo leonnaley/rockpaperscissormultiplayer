@@ -5,10 +5,9 @@
 
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
-import libcommon  # Helps with debugging, logging, documentation and unittesting
+import libcommon  # Helps with debugging, logging and documentation
 import libnet
 import logging
-import unittest
 import random
 import socket
 import sys
@@ -24,46 +23,57 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 
 
 #DEFINES WRAPPER FUNCTIONS
+#DEFINES EVENT FUNCTIONS
+def fRegisterPlayer():
+    '''Registers a player against the server, returns True if succesful'''
+    libnet.fSend("Player_Register " + sUniqueID + " " + sPlayerName,
+              socket.gethostbyname(sServerHostName))
+    pass
+
+def fWelcome_Player():
+    '''Welcomes the player with a welcome screen,
+    and asks for name and hostname of the server'''
+    pass
+
+def fQuit():
+    '''Displays a goodbye screen and quits the game'''
+
 #DEFINES FUNCTIONS
 def fClearScreen():
     '''Prints 40 blank lines, effectively clearing the terminal screen'''
     print("\n"*40)
 
+def fsReceiveEvent(sHostName, iPort):
+    '''Connects to a server, identifies itself and receives an event from
+    that server which it returns'''
 
-def fRegisterPlayer():
-    '''Registers a player against the server'''
-    libnet.fSend("Register Player " + sUniqueID + " " + sPlayerName,
-              socket.gethostbyname(sServerHostName))
-
-
-def fSwitch():
+def fEventHandler(sEvent):
     '''Connects to the server and receives a string of characters from it,
     which determines what screen this client should display'''
     d = {"Register_Player": fRegisterPlayer,
          "Receive_Results": fReceiveResults,
-         "Receive_Choices": fReceiveChoices}
+         "Receive_Choices": fReceiveChoices,
+         "Welcome_Player": fWelcomePlayer,
+         "Quit": fQuit}
 
     d[sDataReceived.split()[0]](sDataReceived)
 
 
 #DEFINES PROCEDURES
-#DEFINES EXCEPTIONS/CLASSES/UNITTESTS
-class unittests(unittest.TestCase):
-    '''This class will contain all unit tests for this file.'''
-    def test_placeholder_example(self):
-        libcommon.fSetInput(["test"])
-        self.assertEqual("test", input())
-
-#HANDLES UNITTESTING
-if "-test" in sys.argv:
-    sys.argv = [sys.argv[0]]
-    input = libcommon.fxInput
-    unittest.main()
-
+#DEFINES EXCEPTIONS/CLASSES
 #DEFINES VARIABLES AND OBJECTS
 sUniqueID = str(random.randrange(1000000, 9999999))
 
 #STARTS THE CLIENT
 if __name__ == "__main__":
-    #Displays welcome screen
-    pass
+    #Tells the eventhandler to open up the welcome screen
+    fEventHandler("Welcome_Player")
+
+    #Tells the eventhandler to register the player against the server
+    fEventHandler("Register_Player")
+
+    #Receive and perform all events from the connected server,
+    #   until the connected server disconnects
+    while True:
+        sEvent = fReceiveEvent()
+        fEventHandler(sEvent)

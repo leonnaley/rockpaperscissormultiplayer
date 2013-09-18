@@ -26,6 +26,9 @@
         function for those functions that require a keyboard input.
 
         Do not remove any "old" unit tests unless you know what you are doing.
+
+        all unit tests are located in the unittests.py
+        This file will be split up to test all the modules in its folder.
     NAMING OF FUNCTIONS, VARIABLES, OBJECTS, ETC...
         The naming system used is CamelBack, so every word for variables and
         whatnot starts with a capital letter to make reading easier.
@@ -67,7 +70,6 @@
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
 import logging
-import unittest
 import sys
 
 #HANDLES COMPATIBILITY FOR PYTHON2
@@ -107,19 +109,7 @@ def fSetInput(lxWantedInput):
     fxInput.iInputExecuteCount = 0
 
 
-#DEFINES EXCEPTIONS/CLASSES/UNITTESTS
-class unittests(unittest.TestCase):
-    '''This class will contain all unit tests for this file.'''
-    def test_placeholder_example(self):
-        libcommon.fSetInput(["test"])
-        self.assertEqual("test", input())
-
-#HANDLES UNITTESTING
-if "-test" in sys.argv:
-    sys.argv = [sys.argv[0]]
-    input = libcommon.fxInput
-    unittest.main()
-
+#DEFINES EXCEPTIONS/CLASSES
 #QUITS IF THIS FILE IS RUN AS A SCRIPT
 if __name__ == "__main__":
     logging.critical('This is a library not a script, exiting')
