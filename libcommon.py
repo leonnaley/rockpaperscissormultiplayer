@@ -90,25 +90,6 @@ def fStartDebugger(type, value, tb):
     #Starts the debugger
     pdb.post_mortem(tb)
 
-
-def fxInput(Text=""):
-    '''Returns input from the fxInput list '''
-    fxInput.iInputExecuteCount += 1
-    if (len(fxInput.lWantedInput) < fxInput.iInputExecuteCount
-       or fxInput.lWantedInput[fxInput.iInputExecuteCount-1] == "Blank"):
-        raise ValueError("The program demands atleast "
-                         + str(len(fxInput.lWantedInput)+1) + " inputs")
-    return fxInput.lWantedInput[fxInput.iInputExecuteCount-1]
-
-
-def fSetInput(lxWantedInput):
-    '''Sets the input the fxInput Function have to provide.
-    The parameters passed to this function must be in the form of a list
-    with every input you want to set in correct order.'''
-    fxInput.lWantedInput = lxWantedInput
-    fxInput.iInputExecuteCount = 0
-
-
 #DEFINES EXCEPTIONS/CLASSES
 #QUITS IF THIS FILE IS RUN AS A SCRIPT
 if __name__ == "__main__":

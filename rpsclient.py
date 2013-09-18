@@ -27,7 +27,7 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 def fRegisterPlayer():
     '''Registers a player against the server, returns True if succesful'''
     libnet.fSend("Player_Register " + sUniqueID + " " + sPlayerName,
-              socket.gethostbyname(sServerHostName))
+                 socket.gethostbyname(sServerHostName))
     pass
 
 def fWelcome_Player():
@@ -37,6 +37,7 @@ def fWelcome_Player():
 
 def fQuit():
     '''Displays a goodbye screen and quits the game'''
+    pass
 
 #DEFINES FUNCTIONS
 def fClearScreen():
@@ -46,6 +47,7 @@ def fClearScreen():
 def fsReceiveEvent(sHostName, iPort):
     '''Connects to a server, identifies itself and receives an event from
     that server which it returns'''
+    pass
 
 def fEventHandler(sEvent):
     '''Connects to the server and receives a string of characters from it,

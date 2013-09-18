@@ -8,6 +8,7 @@ from __future__ import print_function  # For compability with python2
 import libcommon  # Helps with debugging, logging and documentation
 import logging
 import sys
+import unittest
 
 #HANDLES COMPATIBILITY FOR PYTHON2
 if sys.version_info[0] == 2:
@@ -25,11 +26,11 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 class libcommonTests(unittest.TestCase):
     '''This class will contain all unit tests for this file.'''
     def test_placeholder_example(self):
-        libcommon.fSetInput(["test"])
-        self.assertEqual("test", input())
+        self.assertEqual(1, 1)
 
 #DEFINES VARIABLES AND OBJECTS
+input = fxInput
 #QUITS IF THIS FILE IS RUN AS A SCRIPT
 if __name__ == "__main__":
-    logging.critical('This is a library not a script, exiting')
-    exit(1)
+    #Runs through all unit tests in this file
+    unittest.main()
