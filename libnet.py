@@ -21,16 +21,24 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 
 #DEFINES WRAPPER FUNCTIONS
 #DEFINES FUNCTIONS
-def fSend(sData, sIpAdress, iPort=8000):
-    '''Sends a string of characters to an ip adress.'''
+def fHostNameToIpAdress(sHostName):
+    '''Returns the ip adress of the given hostname'''
+    sIPAdress = socket.gethostbyname(sHostName)[0]
+    if sIPAdress.startswith("127"):
+        sIPAdress = "127.0.0.1"
+    return(sIPAdress)
+
+def fIpAdressToHostName(sIPAdress):
+    '''Returns the hostname of the given ip adress'''
+    return(socket(gethostbyaddress(sIPAdress)[0])
+
+def fsSendAndReceive(sData, sIpAdress, sPort="8000"):
+    '''Sends a string to an ip adress through a socket,
+    then receives and returns a string from that ip adress'''
+    iPort = int(sPort)
+
     #Creates a socket object
     oSock = oSocket.oSocket(oSocket.AF_INET, oSocket.SOCK_STREAM)
-
-    #Figures out the ip adress (if the client is on the same server,
-    #   set it to 127.0.0.1)
-    sIpAdress = oSocket.gethostbyname(sHostName)
-    if sIpAdress.startswith("127"):
-        sIpAdress = "127.0.0.1"
 
     #Tries to connect to the listening server
     while True:
@@ -41,14 +49,18 @@ def fSend(sData, sIpAdress, iPort=8000):
         else:
             #Sends the string of characters on the socket
             oSock.send(sData)
+            sReceivedData = oSock.recv(1024)
             break
 
     #Closes and deletes the socket to free up the port used
     oSock.close()
     del oSock
+    return(sReceivedData)
 
 
-def fsReceive(iPort=8000):
+def fsReceiveAndSend(sData="", sPort="8000"):
+    iPort = int(sPort)
+
     #Creates a socket object
     oSock = oSocket.oSocket(oSocket.AF_INET, oSocket.SOCK_STREAM)
 
