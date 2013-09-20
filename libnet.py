@@ -4,15 +4,9 @@
 '''For documentation, read the doclines in libcommon'''
 
 #IMPORTS AND SETS UP MODULES
-from __future__ import print_function  # For compability with python2
-import libcommon  # Helps with debugging, logging and documentation
+import libcommon  # Helps with debugging and logging
 import logging
 import socket
-import sys
-
-#HANDLES COMPATIBILITY FOR PYTHON2
-if sys.version_info[0] == 2:
-    input = raw_input
 
 #GENERAL INFORMATION
 __author__ = "Leon Naley"
@@ -28,9 +22,11 @@ def fHostNameToIpAdress(sHostName):
         sIPAdress = "127.0.0.1"
     return(sIPAdress)
 
+
 def fIpAdressToHostName(sIPAdress):
     '''Returns the hostname of the given ip adress'''
-    return(socket(gethostbyaddress(sIPAdress)[0])
+    return(socket(gethostbyaddress(sIPAdress)[0]))
+
 
 def fsSendAndReceive(sData, sIpAdress, sPort="8000"):
     '''Sends a string to an ip adress through a socket,

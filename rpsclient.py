@@ -5,10 +5,9 @@
 
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
-import libcommon  # Helps with debugging, logging and documentation
+import libcommon  # Helps with debugging and logging
 import libnet
 import logging
-import random
 import sys
 import time
 
@@ -23,6 +22,18 @@ __copyright__ = "Copyright (c) 2013 Leon Naley"
 
 #DEFINES WRAPPER FUNCTIONS
 #DEFINES FUNCTIONS
+def fEVENT_Wait():
+    '''Waits 1 second before resuming operation.'''
+    time.sleep(1)
+
+
+def fEVENT_Quit():
+    '''Displays a goodbye screen and quits the game'''
+    print("\n"*40)
+    print("The Game has ended, Thank you for playing")
+    exit(0)
+
+
 def fbRegisterPlayer(sName, sHostIP, sPort):
     '''Registers a player against the server.'''
     sData = "EVENT_RegisterNewPlayer " + sName
@@ -46,20 +57,8 @@ def ftsWelcomePlayer():
     print("Welcome to the Rock, Paper, Scissor Multiplayer game!")
     sName = input("Please input your name: ")
     sHost = input("Please input the servers hostname")
-    sPort = input("Please input the severs portnumber")
+    sPort = input("Please input the servers portnumber")
     return(sName, sHost, sPort)
-
-
-def fEVENT_Wait():
-    '''Waits 1 second before resuming operation'''
-    time.sleep(1)
-
-
-def fEVENT_Quit():
-    '''Displays a goodbye screen and quits the game'''
-    print("\n"*40)
-    print("The Game has ended, Thank you for playing")
-    exit(0)
 
 
 def fsReceiveEvent(sName, sIpAdress, sPort):
@@ -89,6 +88,7 @@ def fEventHandler(sEvent):
 #DEFINES EXCEPTIONS/CLASSES
 #DEFINES VARIABLES AND OBJECTS
 slastEvent = ""
+
 #STARTS THE CLIENT
 if __name__ == "__main__":
     #Opens up a welcome screen and registers the player to the server

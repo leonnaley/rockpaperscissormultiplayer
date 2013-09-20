@@ -5,7 +5,7 @@
 
 #IMPORTS AND SETS UP MODULES
 from __future__ import print_function  # For compability with python2
-import libcommon  # Helps with debugging, logging and documentation
+import libcommon  # Helps with debugging and logging
 import libnet
 import logging
 import sys
